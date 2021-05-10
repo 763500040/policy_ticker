@@ -1,0 +1,152 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="/ticker/js/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="/ticker/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/ticker/bootstrap/js/bootstrap.min.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+	content="width=device-width, 
+                                     initial-scale=1.0, 
+                                     maximum-scale=1.0, 
+                                     user-scalable=no">
+
+                                     
+<script>
+function subdivide(index) {
+	var SubdivideType =document.getElementById('SubdivideType');
+	if(index=="危化生产类"){
+		SubdivideType.length = 1;
+	    SubdivideType.options[0].text = SubdivideType.options[0].value ="生产型";
+	    SubdivideType[0].selected=true;
+	}else if(index=="危化使用类"){
+		SubdivideType.length = 3;
+	    SubdivideType.options[0].text = SubdivideType.options[0].value ="请选择";
+	    SubdivideType.options[1].text = SubdivideType.options[1].value ="持有使用类许可证";
+	    SubdivideType.options[2].text = SubdivideType.options[2].value ="其他";
+	    SubdivideType[0].selected=true;
+	}else if(index=="危化经营型"){
+		SubdivideType.length = 5;
+		SubdivideType.options[0].text = SubdivideType.options[0].value ="请选择";
+	    SubdivideType.options[1].text = SubdivideType.options[1].value ="经营、批发（不带储存设施）";
+	    SubdivideType.options[2].text = SubdivideType.options[2].value ="仓储";
+	    SubdivideType.options[3].text = SubdivideType.options[3].value ="经营、批发（带有储存设施）";
+	    SubdivideType.options[4].text = SubdivideType.options[4].value ="加油站";
+	    SubdivideType[0].selected=true;
+	}else if(index=="工贸类企业"){
+		SubdivideType.length = 5;
+	    SubdivideType.options[0].text = SubdivideType.options[0].value ="请选择";
+	    SubdivideType.options[1].text = SubdivideType.options[1].value ="使用危险化学品构成重大危险源；使用液氨制冷；涉及镁铝粉的粉尘涉爆";
+	    SubdivideType.options[2].text = SubdivideType.options[2].value ="从事达到国家规定规模（体量）的高温熔融金属及熔渣的冶金企业和有色金属企业";
+	    SubdivideType.options[3].text = SubdivideType.options[3].value ="其他化工企业（含石油、医药化工）；粉尘涉爆工贸企业（镁铝粉除外）；存在有限空间作业；涉及典型危险化学品；存在高温熔融金属工艺的机构加工企业";
+	    SubdivideType.options[4].text = SubdivideType.options[4].value = "其他单位";
+	    SubdivideType[0].selected=true;
+	}else{
+		SubdivideType.length = 0;
+	}
+ }
+ 
+function init(){
+	document.getElementById('CompanyType')[0].selected=true;
+}
+
+function check(){
+	var CompanyType = $('#CompanyType').find('option:selected').val(); 
+	if(CompanyType == null ||CompanyType == '' ||  CompanyType == '请选择'){
+		alert("请选择企业类型");
+		return false;
+	}
+	
+	var SubdivideType = $('#SubdivideType').find('option:selected').val(); 
+	if(SubdivideType == null ||SubdivideType == '' || SubdivideType== '请选择'){
+		alert("请选择类型细分");
+		return false;
+	}
+	
+	var numEmployees = $('input[name="numEmployees"]').val(); 
+	if(numEmployees == null ||numEmployees == ''){
+		alert("请输入公司人数");
+		return false;
+	}
+	
+	var policyGrade = $('input[name="policyGrade"]:checked').val(); 
+	if(policyGrade == null ||policyGrade == ''){
+		alert("请选择投保内容");
+		return false;
+	}
+}
+</script>
+
+</head>
+
+<body  onload="init()">
+<br>
+	<div>
+		<table><tr>
+		<td><img src=/ticker/pic/安信.png  border=0></td>
+		<td><img src=/ticker/pic/安信2.png  border=0></td>
+		</tr></table>
+	</div>
+	
+	<div class="container">
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<div class="page-header" >
+					<h4><b>保险报价器</b></h4>
+				</div>
+				
+				<form role="form" action="rate"  method = "post"     onsubmit="return check()">
+					<div class="form-group">
+						<label>公司名称：</label> 
+						<input type="text" 	class="form-control"  name="companyName" />
+					</div>
+
+					<div class="form-group">
+						<label>企业类型：</label> 
+						<select class="form-control"  id="CompanyType"  name = "CompanyType"   onchange="subdivide(this.value)">
+							<option value="请选择"  selected="selected">请选择</option>
+							<option value="危化生产类">危化生产类</option>
+							<option value="危化使用类">危化使用类</option>
+							<option value="危化经营型">危化经营型</option>
+							<option value="工贸类企业">工贸类企业</option>
+						</select>
+					</div>
+					
+					<div class="form-group">
+						<label>类型细分：</label> 
+						<select class="form-control"	id="SubdivideType"  name="SubdivideType">
+									
+						</select>
+					</div>
+										
+					<div class="form-group">
+						<label>公司人数：</label>
+						<input type="text" 	class="form-control"  name="numEmployees"     oninput = "value=value.replace(/[^\d]/g,'')"/>
+					</div>
+
+					<label>投保内容：</label>
+					<div>
+						<label class="radio-inline"> 
+						<input type="radio" 	name="policyGrade"  value="基础版">基础版
+						</label> 
+						<label class="radio-inline"> 
+						<input type="radio" 	name="policyGrade" value="升级版">升级版
+						</label>
+						<label class="radio-inline"> 
+						<input type="radio" 	name="policyGrade" value="优化版">优化版
+						</label>
+					</div>
+					
+					<br>
+					<button type="submit"   class="btn btn-primary"  style="width:100%;" >下一步</button>
+					<br>
+					<br>
+				</form>
+				
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

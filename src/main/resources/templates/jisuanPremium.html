@@ -1,0 +1,216 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="/ticker/js/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="/ticker/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/ticker/bootstrap/js/bootstrap.min.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+	content="width=device-width, 
+                                     initial-scale=1.0, 
+                                     maximum-scale=1.0, 
+                                     user-scalable=no">
+
+</head>
+
+<body>
+	<br>
+	<div>
+		<table><tr>
+		<td><img src=/ticker/pic/安信.png  border=0></td>
+		<td><img src=/ticker/pic/安信2.png  border=0></td>
+		</tr></table>
+	</div>
+
+	<div class="container">
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<div class="page-header" >
+					<h4><b>保险报价单<b></h4>
+				</div>
+				
+				<table class="table">
+					<caption><b>基本信息</b></caption>
+
+					<tbody>
+						<tr class="success">
+							<td style="width:30%;" >公司名称：</td>
+							<td  th:text="${companyName}"></td>
+						</tr>
+						<tr class="warning">
+							<td>企业类型：</td>
+							<td  th:text="${CompanyType}"></td>
+						</tr>
+						<tr class="success">
+							<td>类型细分：</td>
+							<td  th:text="${SubdivideType}"></td>
+						</tr>
+						<tr class="warning">
+							<td>公司人数：</td>
+							<td  th:text="${numEmployees}"></td>
+						</tr>
+						<tr class="success">
+							<td>投保内容：</td>
+							<td  th:text="${policyGrade}"></td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<table class="table">
+					<caption><b>保费与限额</b></caption>
+
+					<tbody>
+						<tr class="success">
+							<td style="width:60%;"><b>保险费：</b></td>
+							<td style="text-align:right"  th:text="${realPremium}+'(元)'"></td>
+						</tr>
+						<tr class="success">
+							<td><b>全年累计赔偿限额：</b></td>
+							<td  style="text-align:right"  th:text="${sumAmount}+'(万元)'"></td>
+						</tr>
+						<tr class="success">
+							<td><b>每次事故赔偿限额：</b></td>
+							<td  style="text-align:right"    th:text="${singleAccidentAmount}+'(万元)'"></td>
+						</tr>
+						
+						<tr class="active">
+							<td colspan="2"><h5><b>（其中，每次事故各分项赔偿限额如下）</b></h5></td>
+						</tr>
+						
+						<tr class="warning">
+							<td>1.抢险救灾费用：</td>
+							<td  style="text-align:right"    th:text="${fee}+'(万元)'" ></td>
+						</tr>
+						
+						<tr class="active">
+							<td>2.医疗救护费用：</td>
+							<td  style="text-align:right"    th:text="${fee}+'(万元)'" ></td>
+						</tr>
+						
+						<tr class="warning">
+							<td>3.除污费用：</td>
+							<td  style="text-align:right"    th:text="${fee}+'(万元)'" ></td>
+						</tr>
+						
+						<tr class="active">
+							<td>4.事故鉴定费用：</td>
+							<td  style="text-align:right"    th:text="${fee}+'(万元)'" ></td>
+						</tr>
+						
+						<tr class="warning">
+							<td>5.1第三者-每人每次赔偿限额：</td>
+							<td  style="text-align:right"     th:text="${singleManAmount}+'(万元)'" ></td>
+						</tr>
+						
+						<tr class="active">
+							<td>5.2第三者-财产损失赔偿限额：</td>
+							<td  style="text-align:right"    th:text="${fee}+'(万元)'" ></td>
+						</tr>
+						
+						<tr class="warning">
+							<td>6从业人员人身伤亡-每人每人赔偿限额：</td>
+							<td  style="text-align:right"     th:text="${singleManAmount}+'(万元)'" ></td>
+						</tr>
+						
+						<tr class="active">
+							<td>7法律费用：</td>
+							<td  style="text-align:right"    th:text="${fee}+'(万元)'" ></td>
+						</tr>
+						
+					</tbody>
+				</table>
+				<br/>
+				<table class="table">
+					<caption><b>保费计算规则</b></caption>
+
+
+					<tbody>
+						<tr class="success">
+							<td colspan="2"    th:text="'基准保费：'  + ${basePremium}+'(元)'"><b></b></td>
+						</tr>
+						<tr class="active">
+								<td colspan="2">（以下为调整系数）</td>
+						</tr>
+						<tr class="success">
+							<td colspan="2">1.涉及两重点一重大</td>
+						</tr>
+						<tr class="active">
+							<td  style="width:60%;"  th:text="${one}" ></td>
+							<td  style="text-align:right"  th:text="'调整系数：'+${oneMean}"  ></td>
+						</tr>
+
+						<tr class="success">
+							<td colspan="2">2.1是否被纳入安全生产领域失信联合惩戒名单</td>
+						</tr>
+						<tr class="active">
+							<td    th:text="${two}" ></td>
+							<td  style="text-align:right"  th:text="'调整系数：'+${twoMean}"  ></td>
+						</tr>
+						
+						<tr class="success">
+							<td colspan="2">2.2安全生产标准化等级</td>
+						</tr>
+						<tr class="active">
+							<td    th:text="${three}" ></td>
+							<td  style="text-align:right"  th:text="'调整系数：'+${threeMean}"  ></td>
+						</tr>
+						
+						<tr class="success">
+							<td colspan="2">2.3安全风险等级</td>
+						</tr>
+						<tr class="active">
+							<td    th:text="${four}" ></td>
+							<td  style="text-align:right"  th:text="'调整系数：'+${fourMean}"  ></td>
+						</tr>
+						
+						<tr class="success">
+							<td colspan="2">2.4隐患排查治理情况</td>
+						</tr>
+						<tr class="active">
+							<td    th:text="${five}" ></td>
+							<td  style="text-align:right"  th:text="'调整系数：'+${fiveMean}"  ></td>
+						</tr>
+						
+						<tr class="success">
+							<td colspan="2">2.5上年生产安全事故发生情况</td>
+						</tr>
+						<tr class="active">
+							<td    th:text="${six}" ></td>
+							<td  style="text-align:right"  th:text="'调整系数：'+${sixMean}"  ></td>
+						</tr>
+						
+						<tr class="success">
+							<td colspan="2">3.安全生产违法行为行政处罚</td>
+						</tr>
+						<tr class="active">
+							<td    th:text="${seven}" ></td>
+							<td  style="text-align:right"  th:text="'调整系数：'+${sevenMean}"  ></td>
+						</tr>
+						
+						<tr class="success">
+							<td colspan="2">4.坐落地</td>
+						</tr>
+						<tr class="active">
+							<td   th:text="${eight}" ></td>
+							<td  style="text-align:right"  th:text="'调整系数：'+${eightMean}"  ></td>
+						</tr>
+						<tr class="success">
+							<td colspan="2">6.上年事故预防服务落实情况</td>
+						</tr>
+						<tr class="active">
+							<td    th:text="${ten}" ></td>
+							<td  style="text-align:right"  th:text="'调整系数：'+${tenMean}"  ></td>
+						</tr>
+					</tbody>
+				</table>
+				*注以上2.1-2.5调整系数的乘积，以0.7-1.3为上下限
+				<br>
+				<br>
+				<br>
+			</div>
+		</div>
+	</div>
+
+
+</body>
