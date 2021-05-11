@@ -3,7 +3,7 @@ package cn.com.aaic.policyticker.util;
 import java.math.BigDecimal;
 
 public class CalculateUtil {
-	 
+
 	/**
 	 * float 完整精度相乘
 	 * @return
